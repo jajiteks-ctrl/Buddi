@@ -1,0 +1,87 @@
+/* Login form container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #f0f2f5; /* soft background */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Form styling */
+.login-container form {
+  background-color: #fff;
+  padding: 35px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Form headings (if added later) */
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Labels */
+.login-container label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: inline-block;
+  color: #333;
+}
+
+/* Input fields */
+.login-container input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Input focus */
+.login-container input:focus {
+  border-color: #ff6f61;
+  box-shadow: 0 0 5px rgba(255, 111, 97, 0.4);
+  outline: none;
+}
+
+/* Submit button */
+.login-container button {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 8px;
+  background-color: black;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Button hover effect */
+.login-container button:hover {
+  background-color: black;
+  transform: translateY(-2px);
+}
+
+/* Message text */
+.login-container p {
+  text-align: center;
+  margin-top: 15px;
+  font-weight: 500;
+  color: #ff6f61; /* error or success color can be adjusted */
+}
+
+/* Responsive for small screens */
+@media (max-width: 450px) {
+  .login-container form {
+    padding: 25px 20px;
+  }
+}

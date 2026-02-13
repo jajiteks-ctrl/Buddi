@@ -1,0 +1,63 @@
+/* Form container */
+.form-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px 25px;
+  border-radius: 12px;
+  background-color: #f5f5f5; /* light gray */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Form title */
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Input fields */
+.form-container input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Input focus effect */
+.form-container input:focus {
+  border-color: #ff6f61;
+  box-shadow: 0 0 5px rgba(255, 111, 97, 0.5);
+  outline: none;
+}
+
+/* Submit button */
+.form-container button {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 8px;
+  background-color: black;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Button hover effect */
+.form-container button:hover {
+  background-color: black;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 450px) {
+  .form-container {
+    margin: 30px 15px;
+    padding: 25px 20px;
+  }
+}

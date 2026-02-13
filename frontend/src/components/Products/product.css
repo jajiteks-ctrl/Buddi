@@ -1,0 +1,222 @@
+body {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+}
+
+/* === Whole page container === */
+.products-container {
+  display: flex;
+  gap: 10px;
+  padding-top: 30px;
+
+
+}
+
+/* === Categories panel === */
+/* .categories-panel {
+  width: 160px;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+} */
+
+.categories-panel h3 {
+  margin-bottom: 10px;
+}
+
+.categories-panel ul {
+  list-style: none;       /* remove bullets */
+  padding: 0;             /* remove default padding */
+  margin: 0;              /* remove default margin */
+  /* black border */
+  border-radius: 8px;      /* optional smooth corners */
+  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2); /* shadow on the right */
+  overflow: hidden;        /* ensures rounded corners clip shadow nicely */
+}
+
+
+/* Reset the ul styling */
+.categories-panel {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 200px;
+  /* optional, adjust as needed */
+}
+
+/* Style each list item */
+.categories-panel li {
+  display: block;
+  /* ensures hover works properly */
+  padding: 10px 15px;
+  /* space inside the box */
+  margin-bottom: 5px;
+  /* spacing between items */
+  cursor: pointer;
+  border-radius: 8px;
+  /* smooth rounded corners */
+  transition: background-color 0.3s, transform 0.2s;
+  background-color: #fff;
+  /* default background */
+  overflow: hidden;
+  /* ensures hover stays inside rounded corners */
+}
+
+/* Hover effect */
+
+
+
+.categories-panel li.selected {
+  /* background-color: #dcdcdc; */
+  font-weight: bold;
+}
+
+/* === Products panel === */
+.products-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.prod-image {
+  width: 100%;
+  max-width: 250px;
+
+  /* fixed width */
+  height: 200px;
+  /* fixed height to match width for square images */
+  object-fit: cover;
+  /* ensures the image covers the container without distortion */
+  border-radius: 5px;
+  /* optional: rounds corners nicely */
+}
+
+.product-card {
+  border: 1px solid #eee;
+  position: relative;
+  /* lighter border */
+  padding: 15px;
+  border-radius: 10px;
+  /* rounded corners */
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  background-color: #fff;
+  width: 100%;
+  max-width: 300px;
+
+  line-height: 18px;
+  /* white background */
+
+}
+
+.card {
+  text-align: left;
+}
+
+
+/* Hover effect */
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.heart-con {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 25px;
+}
+
+.add-cart {
+  width: 100%;
+  padding: 15px;
+  background-color: black;
+  color: white;
+  font-size: 1.0rem;
+  letter-spacing: 2px;
+  ;
+}
+
+.ratings-con {
+  position: absolute;
+
+  right: 15px;
+
+}
+
+.star {
+  font-size: 25px;
+  color: gold;
+
+}
+
+.num {
+  font-size: 15px;
+}
+
+.new-arrival {
+  text-align: center;
+  margin-bottom: 20px;
+
+
+}
+
+
+@media (max-width: 600px) {
+  .products-container {
+    flex-direction: column;
+  }
+
+  .categories-panel {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    position: fixed;
+    top: 18px;
+    bottom: 0;
+    z-index: 3000;
+
+  }
+
+  .categories-panel ul {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+  }
+
+  .categories-panel li {
+    white-space: nowrap;
+    min-width: fit-content;
+    border:2px solid black;
+  }
+
+  .products-panel {
+    width: 100%;
+    align-items: center;
+  }
+}
+
+.prod-desc {
+  margin-top: 15%;
+}
+
+.prod-price {
+  margin-top: 10%;
+}
+
+.prod-name {
+  padding: 20px;
+}
+
+.search-input {
+  width: 20%;
+  padding: 10px;
+}

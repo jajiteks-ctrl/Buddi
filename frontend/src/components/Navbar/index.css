@@ -1,0 +1,65 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  padding: 10px;
+  background-color: white;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  z-index: 4000;
+}
+
+.logo {
+ height:80px;       /* ✅ control navbar height */
+  width:220px;     /* keep aspect ratio */
+ object-fit: cover;
+}
+/* DESKTOP */
+.nav-element-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* hamburger hidden on desktop */
+.hamb {
+  display: none;
+  cursor: pointer;
+}
+
+/* MOBILE */
+@media (max-width: 996px) {
+  .hamb {
+    display: block;
+  }
+
+  .nav-element-container {
+    position: absolute;
+    top: 60px; /* below navbar */
+    left: 0;
+    right: 0;
+
+    background-color: white;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+
+    display: none; /* hidden by default */
+  }
+
+  .nav-element-container.open {
+    display: flex; /* shown when hamburger clicked */
+  }
+}
+
+.nav-links {
+  text-decoration: none;
+  color: red;
+  font-size: 1.2em;
+}
