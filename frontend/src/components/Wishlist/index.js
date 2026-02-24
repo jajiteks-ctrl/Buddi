@@ -10,7 +10,7 @@ const Wishlist = () => {
   const getWishlist = useCallback(async () => {
     try {
       const res = await axios.get(
-        "http://127.0.0.1:8000/wishlist/",
+        "https://buddi-irzf.onrender.com/wishlist/",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -56,7 +56,7 @@ const Wishlist = () => {
                 className="remove-btn"
                 onClick={async () => {
                   await axios.delete(
-                    `http://127.0.0.1:8000/wishlist/delete/${item.id}/`,
+                    `https://buddi-irzf.onrender.com/wishlist/delete/${item.id}/`,
                     {
                       headers: {
                         Authorization: `Bearer ${token}`,

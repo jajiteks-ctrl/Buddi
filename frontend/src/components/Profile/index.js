@@ -9,7 +9,7 @@ const Profile = () => {
     useEffect(() => {
         const fecthProfile = async () => {
             try {
-                const res = await axios.get("http://127.0.0.1:8000/profile/", {
+                const res = await axios.get("https://buddi-irzf.onrender.com/profile/", {
                     headers: { Authorization: `Bearer ${token}` }
                 })
                 setProfile(res.data)
