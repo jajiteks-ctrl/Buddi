@@ -24,7 +24,7 @@ function Register() {
 
         try {
             const res = await axios.post(
-                "http://127.0.0.1:8000/register/",
+                "https://buddi-irzf.onrender.com/register/",
                 data
             );
 

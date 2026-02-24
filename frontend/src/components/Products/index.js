@@ -69,7 +69,7 @@ const Products = () => {
     const fetchCategoryProducts = async () => {
       try {
         const res = await axios.get(
-          "http://127.0.0.1:8000/products/category-wise/"
+          "https://buddi-irzf.onrender.com/products/category-wise/"
         );
 
         const matchedCategory = res.data.find(
