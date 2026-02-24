@@ -22,7 +22,7 @@ const Home = () => {
     const addToCart = async (productId) => {
         try {
             await axios.post(
-                "https://buddi-irzf.onrender.com/cart/add/",
+                "http://127.0.0.1:8000/cart/add/",
                 { product_id: productId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -196,7 +196,7 @@ const Home = () => {
                                 </div>
 
                                 {/* ----------- SEE ALL ----------- */}
-                                {selectedCategory.products.length > 6 && (
+                                {selectedCategory.products.length > 5 && (
                                     <div className="see-all-container">
                                         <button
                                             className="see-all-btn"
