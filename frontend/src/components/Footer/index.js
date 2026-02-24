@@ -1,6 +1,7 @@
 
 import React from "react";
 import "./index.css"; // Import CSS file for styling
+import {Link} from "react"
 
 const Footer = () => {
   return (
@@ -39,11 +40,22 @@ const Footer = () => {
         <div className="footer-section social">
           <h3>Follow Us</h3>
           <div className="social-icons">
-            <a href="#"><img src="https://img.icons8.com/ios-filled/24/ffffff/facebook-new.png" alt="Facebook"/></a>
-            <a href="#"><img src="https://img.icons8.com/ios-filled/24/ffffff/twitter.png" alt="Twitter"/></a>
-            <a href="#"><img src="https://img.icons8.com/ios-filled/24/ffffff/instagram-new.png" alt="Instagram"/></a>
-            <a href="#"><img src="https://img.icons8.com/ios-filled/24/ffffff/linkedin.png" alt="LinkedIn"/></a>
-          </div>
+  <Link to="/">
+    <img src="https://img.icons8.com/ios-filled/24/ffffff/facebook-new.png" alt="Facebook" />
+  </Link>
+
+  <Link to="/">
+    <img src="https://img.icons8.com/ios-filled/24/ffffff/twitter.png" alt="Twitter" />
+  </Link>
+
+  <Link to="/">
+    <img src="https://img.icons8.com/ios-filled/24/ffffff/instagram-new.png" alt="Instagram" />
+  </Link>
+
+  <Link to="/">
+    <img src="https://img.icons8.com/ios-filled/24/ffffff/linkedin.png" alt="LinkedIn" />
+  </Link>
+</div>
         </div>
       </div>
 
