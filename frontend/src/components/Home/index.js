@@ -22,7 +22,7 @@ const Home = () => {
     const addToCart = async (productId) => {
         try {
             await axios.post(
-                "http://127.0.0.1:8000/cart/add/",
+                "https://buddi-irzf.onrender.com/cart/add/",
                 { product_id: productId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -37,14 +37,14 @@ const Home = () => {
     const toggleWishlist = async (productId) => {
         try {
             if (wishlist.includes(productId)) {
-                const res = await axios.get("http://127.0.0.1:8000/wishlist/", {
+                const res = await axios.get("https://buddi-irzf.onrender.com/wishlist/", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
                 const item = res.data.find((i) => i.product === productId);
                 if (item) {
                     await axios.delete(
-                        `http://127.0.0.1:8000/wishlist/delete/${item.id}/`,
+                        `https://buddi-irzf.onrender.com/wishlist/delete/${item.id}/`,
                         { headers: { Authorization: `Bearer ${token}` } }
                     );
                 }
@@ -52,7 +52,7 @@ const Home = () => {
                 setWishlist((prev) => prev.filter((id) => id !== productId));
             } else {
                 await axios.post(
-                    "http://127.0.0.1:8000/wishlist/add/",
+                    "https://buddi-irzf.onrender.com/wishlist/add/",
                     { product_id: productId },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -68,7 +68,7 @@ const Home = () => {
         const fetchCategories = async () => {
             try {
                 const res = await axios.get(
-                    "http://127.0.0.1:8000/products/category-wise/"
+                    "https://buddi-irzf.onrender.com/products/category-wise/"
                 );
 
                 setCategories(res.data);
@@ -83,7 +83,7 @@ const Home = () => {
 
         const fetchWishlist = async () => {
             try {
-                const res = await axios.get("http://127.0.0.1:8000/wishlist/", {
+                const res = await axios.get("https://buddi-irzf.onrender.com/wishlist/", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setWishlist(res.data.map((item) => item.product));
