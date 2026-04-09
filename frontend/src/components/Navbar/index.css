@@ -40,7 +40,7 @@
 
   .nav-element-container {
     position: absolute;
-    top: 60px; /* below navbar */
+    top: 80px; /* below navbar */
     left: 0;
     right: 0;
 

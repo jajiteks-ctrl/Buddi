@@ -6,25 +6,27 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import "./index.css";
 
 const Navbar = () => {
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  // const [token, setToken] = useState(localStorage.getItem("token"));
+
+  const token = localStorage.getItem("token")
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("refresh");
-    setToken(null);
+    
     navigate("/login");
   };
 
   // 🔥 keeps navbar in sync after login
-  useEffect(() => {
-    const syncToken = () => {
-      setToken(localStorage.getItem("token"));
-    };
-    window.addEventListener("storage", syncToken);
-    return () => window.removeEventListener("storage", syncToken);
-  }, []);
+  // useEffect(() => {
+  //   const syncToken = () => {
+  //     setToken(localStorage.getItem("token"));
+  //   };
+  //   window.addEventListener("storage", syncToken);
+  //   return () => window.removeEventListener("storage", syncToken);
+  // }, []);
 
   return (
     <nav className="navbar-container">
@@ -36,15 +38,10 @@ const Navbar = () => {
         onClick={() => setMenuOpen(!menuOpen)}
       />
 
-      <div className={`nav-element-container ${menuOpen ? "open" : ""}`}>
+      <div className={menuOpen ? "nav-element-container open" : "nav-element-container"}>
         <Link to="/" className="nav-links">Home</Link>
 
-        {!token ? (
-          <>
-            <Link to="/register" className="nav-links">Register</Link>
-            <Link to="/login" className="nav-links">Login</Link>
-          </>
-        ) : (
+        {token ? (
           <>
             <Link to="/products" className="nav-links">Products</Link>
             <Link to="/cart" className="nav-links">🛒</Link>
@@ -55,7 +52,12 @@ const Navbar = () => {
               Logout
             </button>
           </>
-        )}
+        ): (
+          <>
+            <Link to="/register" className="nav-links">Register</Link>
+            <Link to="/login" className="nav-links">Login</Link>
+          </>
+        )  }
       </div>
     </nav>
   );
