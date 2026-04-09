@@ -1,6 +1,6 @@
 
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 import "./index.css";
