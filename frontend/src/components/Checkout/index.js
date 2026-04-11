@@ -16,7 +16,7 @@ const Checkout = () => {
     useEffect(() => {
         const fetchCart = async () => {
             try {
-                const res = await axios.get("http://127.0.0.1:8000/cart/", {
+                const res = await axios.get("https://buddi-irzf.onrender.com/cart/", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setCartItems(res.data);
@@ -42,7 +42,7 @@ const Checkout = () => {
         try {
             setLoading(true);
             await axios.post(
-                "http://127.0.0.1:8000/checkout/",
+                "https://buddi-irzf.onrender.com/checkout/",
                 { address },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

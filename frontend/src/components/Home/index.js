@@ -22,7 +22,7 @@ const Home = () => {
     const addToCart = async (productId) => {
         try {
             await axios.post(
-                "http://127.0.0.1:8000/cart/add/",
+                "https://buddi-irzf.onrender.com/cart/add/",
                 { product_id: productId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

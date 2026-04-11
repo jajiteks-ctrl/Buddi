@@ -12,7 +12,7 @@ const Cart = () => {
     // function to refresh cart anytime
     const fetchCart = async () => {
         try {
-            const res = await axios.get("http://127.0.0.1:8000/cart/", {
+            const res = await axios.get("https://buddi-irzf.onrender.com//cart/", {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setCartItem(res.data);
@@ -25,7 +25,7 @@ const Cart = () => {
     useEffect(() => {
         const getCart = async () => {
             try {
-                const res = await axios.get("http://127.0.0.1:8000/cart/", {
+                const res = await axios.get("https://buddi-irzf.onrender.com/cart/", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setCartItem(res.data);
@@ -40,7 +40,7 @@ const Cart = () => {
     const cartIncrease = async (productId) => {
         try {
             await axios.post(
-                "http://127.0.0.1:8000/cart/add/",
+                "https://buddi-irzf.onrender.com/cart/add/",
                 { product_id: productId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -53,7 +53,7 @@ const Cart = () => {
     const cartDecrease = async (productId) => {
         try {
             await axios.post(
-                "http://127.0.0.1:8000/cart/decrease/",
+                "https://buddi-irzf.onrender.com/cart/decrease/",
                 { product_id: productId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -66,7 +66,7 @@ const Cart = () => {
     const deleteCart = async (productId) => {
         try {
             await axios.delete(
-                `http://127.0.0.1:8000/remove/${productId}/`,
+                `https://buddi-irzf.onrender.com/remove/${productId}/`,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             fetchCart();
