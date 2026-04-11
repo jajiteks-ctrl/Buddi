@@ -595,11 +595,13 @@ import dj_database_url
 import os
 
 
+import dj_database_url
+
 DATABASES = {
-    "default": dj_database_url.config(
-        default="sqlite:///" + str(BASE_DIR / "db.sqlite3"),
+    "default": dj_database_url.parse(
+        "postgresql://postgres.flccqnbbjtbjjekzegtg:post58912345post@aws-1-ap-south-1.pooler.supabase.com:6543/postgres",
         conn_max_age=600,
-        ssl_require=True   # ✅ THIS LINE FIXES YOUR ISSUE
+        ssl_require=True
     )
 }
 # -------------------------------------------------
