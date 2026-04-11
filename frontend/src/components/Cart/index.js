@@ -12,7 +12,7 @@ const Cart = () => {
     // function to refresh cart anytime
     const fetchCart = async () => {
         try {
-            const res = await axios.get("https://buddi-irzf.onrender.com//cart/", {
+            const res = await axios.get("https://buddi-irzf.onrender.com/cart/", {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setCartItem(res.data);
