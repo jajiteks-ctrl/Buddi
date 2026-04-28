@@ -34,6 +34,7 @@ from app.views import health
 #     path("admin/", admin.site.urls),
 path('health/', health),
 
+
 #     # Auth
 #     path("register/", ResgisterView.as_view()),
 #     path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
