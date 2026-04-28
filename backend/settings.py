@@ -88,17 +88,18 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 import dj_database_url
 import os
-
 DATABASES = {
     "default": dj_database_url.parse(
         os.environ.get("DATABASE_URL"),
-        conn_max_age=0   # 🔥 very important
+        conn_max_age=0
     )
 }
 
 DATABASES['default']['OPTIONS'] = {
     'sslmode': 'require',
 }
+
+DATABASES['default']['DISABLE_SERVER_SIDE_CURSORS'] = True
 
 # -------------------------------------------------
 # REST Framework & JWT
