@@ -88,6 +88,12 @@ from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from django.http import JsonResponse   # ADD THIS
+
+
+def home(request):                     # ADD THIS
+    return JsonResponse({"message": "Backend is running"})
+
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -117,7 +123,9 @@ health,
 )
 
 urlpatterns = [
+    path("", home),
     path('admin/', admin.site.urls),
+    path("health/", health),
 
     # AUTH
     path("register/", ResgisterView.as_view()),
@@ -156,9 +164,6 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # ✅ React frontend fallback (VERY IMPORTANT — always LAST)
-urlpatterns += [
-    path("health/", health),
-    re_path(r"^.*$", TemplateView.as_view(template_name="index.html")),
-]
+
 
 
