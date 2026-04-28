@@ -752,17 +752,23 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # -------------------------------------------------
 # Database (SQLite / Postgres)
 # -------------------------------------------------
-import dj_database_url
+ import dj_database_url
 
+# DATABASES = {
+#     "default": dj_database_url.parse(
+#         os.environ.get("DATABASE_URL"),
+#         conn_max_age=0
+#     )
+# }
+
+# DATABASES['default']['OPTIONS'] = {
+#     'sslmode': 'require',
+# }
 DATABASES = {
-    "default": dj_database_url.parse(
-        os.environ.get("DATABASE_URL"),
-        conn_max_age=0
-    )
-}
-
-DATABASES['default']['OPTIONS'] = {
-    'sslmode': 'require',
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
+    }
 }
 
 # -------------------------------------------------
