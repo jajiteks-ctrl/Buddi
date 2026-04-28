@@ -752,7 +752,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # -------------------------------------------------
 # Database (SQLite / Postgres)
 # -------------------------------------------------
- import dj_database_url
+import dj_database_url
 
 # DATABASES = {
 #     "default": dj_database_url.parse(
