@@ -95,6 +95,7 @@ from rest_framework_simplejwt.views import (
 )
 
 from app.views import (
+health,
     ResgisterView,
     LogoutAPIView,
     ProfileView,
@@ -156,6 +157,7 @@ if settings.DEBUG:
 
 # ✅ React frontend fallback (VERY IMPORTANT — always LAST)
 urlpatterns += [
+    path("health/", health),
     re_path(r"^.*$", TemplateView.as_view(template_name="index.html")),
 ]
 
