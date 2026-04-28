@@ -10,11 +10,11 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 from app.serializers import RegisterSerializer, DecreaseCartItemSerializer,AddToCartSerializer,CartItemSerializer
-
-from django.http import HttpResponse
+from django.http import JsonResponse
 
 def health(request):
-    return HttpResponse("OK", status=200)
+    return JsonResponse({"status": "ok"})
+
     
 class ResgisterView(generics.CreateAPIView):
     queryset = User.objects.all()
