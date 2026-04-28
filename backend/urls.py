@@ -3,7 +3,7 @@
 # from django.conf import settings
 # from django.conf.urls.static import static
 # from django.views.generic import TemplateView
-from app.views import health
+
 
 # from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
@@ -32,7 +32,7 @@ from app.views import health
 # urlpatterns = [
 #     # Admin
 #     path("admin/", admin.site.urls),
-path('health/', health),
+
 
 
 #     # Auth
