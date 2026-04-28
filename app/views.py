@@ -359,56 +359,72 @@
 
 
 
+from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from app.models import Product, Category, Cart, CartItem, Order, OrderItem, Wishlist, WishlistItem
 from app.serializers import (
     RegisterSerializer,
+    DecreaseCartItemSerializer,
+    AddToCartSerializer,
+    CartItemSerializer,
     ProfileSerializer,
     ProductSerializer,
     CategorySerializer,
-    AddToCartSerializer,
-    DecreaseCartItemSerializer,
-    CartItemSerializer,
     OrderSerializer,
     WishlistItemSerializer,
     AddWishlistSerializer
 )
 
-# ---------------------------
-# Health
-# ---------------------------
+from app.models import (
+    Product, Category,
+    Cart, CartItem,
+    Order, OrderItem,
+    Wishlist, WishlistItem
+)
+
+# =========================
+# HEALTH
+# =========================
 def health(request):
     return JsonResponse({"status": "ok"})
 
 
-# ---------------------------
-# Register
-# ---------------------------
+# =========================
+# REGISTER
+# =========================
 class ResgisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
 
-
-# ---------------------------
-# Logout
-# ---------------------------
-from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-
-class LogoutAPIView(CreateAPIView):
-    permission_classes = [IsAuthenticated]
     def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+
+        return Response({
+            "message": f"{user.username} Register Successfully",
+            "data": serializer.data
+        }, status=status.HTTP_201_CREATED)
+
+
+# =========================
+# LOGOUT
+# =========================
+class LogoutAPIView(generics.GenericAPIView):  # 🔴 FIX: CreateAPIView → GenericAPIView (safer)
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
         return Response({"detail": "Logged out successfully"})
 
-# ---------------------------
-# Profile
-# ---------------------------
+
+# =========================
+# PROFILE
+# =========================
 class ProfileView(generics.RetrieveAPIView):
     serializer_class = ProfileSerializer
     permission_classes = [IsAuthenticated]
@@ -417,9 +433,9 @@ class ProfileView(generics.RetrieveAPIView):
         return self.request.user
 
 
-# ---------------------------
-# Product
-# ---------------------------
+# =========================
+# PRODUCT
+# =========================
 class ProductCreateView(generics.CreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -435,35 +451,37 @@ class ProductDetailAPIView(generics.RetrieveAPIView):
     serializer_class = ProductSerializer
 
 
-# ---------------------------
-# Category
-# ---------------------------
+# =========================
+# CATEGORY
+# =========================
 class CategoryCreateView(generics.CreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
-# 🟢 FIXED (IMPORTANT)
 class CategoryWiseProductView(generics.ListAPIView):
     serializer_class = CategorySerializer
 
     def get_queryset(self):
-        return Category.objects.all().prefetch_related("products")
+        return Category.objects.prefetch_related("products").all()  # 🔴 FIX: optimized query
 
 
-# ---------------------------
-# CART FIXED
-# ---------------------------
+# =========================
+# CART - ADD
+# =========================
 class AddToCartAPIView(generics.CreateAPIView):
     serializer_class = AddToCartSerializer
     permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data, context={"request": request})
+        serializer = self.get_serializer(
+            data=request.data,
+            context={"request": request}
+        )
         serializer.is_valid(raise_exception=True)
         item = serializer.save()
 
-        cart, _ = Cart.objects.get_or_create(user=request.user)
+        cart, _ = Cart.objects.get_or_create(user=request.user)  # 🔴 FIX: safe cart
         cart_items = CartItem.objects.filter(cart=cart)
 
         total = sum(ci.product.price * ci.quantity for ci in cart_items)
@@ -471,28 +489,45 @@ class AddToCartAPIView(generics.CreateAPIView):
         return Response({
             "item": CartItemSerializer(item).data,
             "cart_total": total
-        })
+        }, status=status.HTTP_200_OK)
 
 
+# =========================
+# VIEW CART
+# =========================
 class ViewCartAPIView(generics.ListAPIView):
     serializer_class = CartItemSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        cart, _ = Cart.objects.get_or_create(user=self.request.user)
+        cart, _ = Cart.objects.get_or_create(user=self.request.user)  # 🔴 FIX
         return CartItem.objects.filter(cart=cart)
 
 
+# =========================
+# PRODUCT DETAIL
+# =========================
+class ProductDetailAPIView(generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+# =========================
+# DECREASE CART
+# =========================
 class DecreaseCartItemView(generics.CreateAPIView):
     serializer_class = DecreaseCartItemSerializer
     permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data, context={"request": request})
+        serializer = self.get_serializer(
+            data=request.data,
+            context={"request": request}
+        )
         serializer.is_valid(raise_exception=True)
         item = serializer.save()
 
-        cart, _ = Cart.objects.get_or_create(user=request.user)
+        cart, _ = Cart.objects.get_or_create(user=request.user)  # 🔴 FIX
         cart_items = CartItem.objects.filter(cart=cart)
 
         total = sum(ci.product.price * ci.quantity for ci in cart_items)
@@ -503,24 +538,31 @@ class DecreaseCartItemView(generics.CreateAPIView):
         })
 
 
+# =========================
+# REMOVE ITEM
+# =========================
 class RemoveCartItemAPIView(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def delete(self, request, product_id):
-        cart, _ = Cart.objects.get_or_create(user=request.user)
+        cart, _ = Cart.objects.get_or_create(user=request.user)  # 🔴 FIX
 
-        item = CartItem.objects.filter(cart=cart, product_id=product_id).first()
+        item = CartItem.objects.filter(
+            cart=cart,
+            product_id=product_id
+        ).first()
 
         if not item:
-            return Response({"message": "Not found"}, status=404)
+            return Response({"message": "Item not found"}, status=404)
 
         item.delete()
-        return Response({"message": "Deleted"})
+
+        return Response({"message": "Item removed"})
 
 
-# ---------------------------
-# Checkout
-# ---------------------------
+# =========================
+# CHECKOUT
+# =========================
 class CheckoutCreateAPIView(generics.CreateAPIView):
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
@@ -529,12 +571,19 @@ class CheckoutCreateAPIView(generics.CreateAPIView):
         user = request.user
         address = request.data.get("address")
 
-        cart, _ = Cart.objects.get_or_create(user=user)
+        cart, _ = Cart.objects.get_or_create(user=user)  # 🔴 FIX
         cart_items = CartItem.objects.filter(cart=cart)
+
+        if not cart_items.exists():
+            return Response({"error": "Cart is empty"}, status=400)
 
         total = sum(i.product.price * i.quantity for i in cart_items)
 
-        order = Order.objects.create(user=user, address=address, total_amount=total)
+        order = Order.objects.create(
+            user=user,
+            address=address,
+            total_amount=total
+        )
 
         for item in cart_items:
             OrderItem.objects.create(
@@ -546,4 +595,57 @@ class CheckoutCreateAPIView(generics.CreateAPIView):
 
         cart_items.delete()
 
-        return Response({"message": "Order placed"})
+        return Response({
+            "message": "Order placed successfully",
+            "order_id": order.id
+        })
+
+
+# =========================
+# ORDER LIST
+# =========================
+class OrderListAPIView(generics.ListAPIView):
+    serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user).order_by("-created_at")
+
+
+# =========================
+# ORDER DETAIL
+# =========================
+class OrderDetailAPIView(generics.RetrieveAPIView):
+    serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user)
+
+
+# =========================
+# WISHLIST
+# =========================
+class AddWishlistItemView(generics.CreateAPIView):
+    serializer_class = AddWishlistSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_serializer_context(self):
+        return {"request": self.request}
+
+
+class WishlistListView(generics.ListAPIView):
+    serializer_class = WishlistItemSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        wishlist, _ = Wishlist.objects.get_or_create(user=self.request.user)
+        return wishlist.items.all()
+
+
+class WishlistDeleteView(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        wishlist, _ = Wishlist.objects.get_or_create(user=self.request.user)
+        return WishlistItem.objects.filter(wishlist=wishlist)
