@@ -11,7 +11,11 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 from app.serializers import RegisterSerializer, DecreaseCartItemSerializer,AddToCartSerializer,CartItemSerializer
 
+from django.http import HttpResponse
 
+def health(request):
+    return HttpResponse("OK", status=200)
+    
 class ResgisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
