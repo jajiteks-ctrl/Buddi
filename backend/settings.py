@@ -92,7 +92,7 @@ import os
 DATABASES = {
     "default": dj_database_url.parse(
         os.environ.get("DATABASE_URL"),
-        conn_max_age=0   # 🔥 MUST be 0
+        conn_max_age=0   # 🔥 very important
     )
 }
 
